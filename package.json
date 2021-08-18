@@ -19,5 +19,8 @@
   "homepage": "https://github.com/Dimzmiks555/1c_exchange#readme",
   "devDependencies": {
     "express": "^4.17.1"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
   }
 }
