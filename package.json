@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Dimzmiks555/1c_exchange/issues"
   },
-  "homepage": "https://github.com/Dimzmiks555/1c_exchange#readme"
+  "homepage": "https://github.com/Dimzmiks555/1c_exchange#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
 }
