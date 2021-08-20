@@ -30,15 +30,23 @@ fs.readFile('//SERVER/webdata/import1_1.xml', (err, data) => {
         })
     })
 })
-
-// fs.readFile('//SERVER/webdata/offers1_1.xml', (err, data) => {
-//     console.log(err)
-//     parser.parseString(data, (err, result) => {
-//         // console.log(result);
-//         fs.writeFile('offers.txt', JSON.stringify(result), () => {})
-//         console.log('Done');
-//     })
-// })
+fs.readFile('//SERVER/webdata/offers1_1.xml', (err, data) => {
+    console.log(err)
+    parser.parseString(data, (err, result) => {
+        console.log(result['КоммерческаяИнформация'])
+        fetch('http://localhost:80/1c_exchange/prices_and_counts', {
+            body: JSON.stringify(result['КоммерческаяИнформация']),
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        })
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    })
+})
 
 
 
