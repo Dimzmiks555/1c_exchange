@@ -13,42 +13,49 @@ app.get('/', (request, response) => {
     response.send('Hello, Server!');
 });
 
-fs.readFile('//SERVER/webdata/import1_1.xml', (err, data) => {
-    console.log(err)
-    parser.parseString(data, (err, result) => {
-        console.log(result['КоммерческаяИнформация'])
-        fetch('http://localhost:80/1c_exchange/', {
-            body: JSON.stringify(result['КоммерческаяИнформация']),
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-        })
-        .then(response => {
-            console.log(response)
-        })
-        .catch(error => {
-            console.log(error)
-        })
-    })
-})
-fs.readFile('//SERVER/webdata/offers1_1.xml', (err, data) => {
-    console.log(err)
-    parser.parseString(data, (err, result) => {
-        console.log(result['КоммерческаяИнформация'])
-        fetch('http://localhost:80/1c_exchange/prices_and_counts', {
-            body: JSON.stringify(result['КоммерческаяИнформация']),
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-        })
-        .then(response => {
-            console.log(response)
-        })
-        .catch(error => {
-            console.log(error)
-        })
-    })
-})
+// fs.readFile('//SERVER/webdata/import1_1.xml', (err, data) => {
+//     console.log(err)
+//     parser.parseString(data, (err, result) => {
+//         console.log(result['КоммерческаяИнформация'])
+//         fetch('http://localhost:80/1c_exchange/', {
+//             body: JSON.stringify(result['КоммерческаяИнформация']),
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//         })
+//         .then(response => {
+//             console.log(response)
+//         })
+//         .catch(error => {
+//             console.log(error)
+//         })
+//     })
+// })
+// fs.readFile('//SERVER/webdata/offers1_1.xml', (err, data) => {
+//     console.log(err)
+//     parser.parseString(data, (err, result) => {
+//         console.log(result['КоммерческаяИнформация'])
+//         fetch('http://localhost:80/1c_exchange/prices_and_counts', {
+//             body: JSON.stringify(result['КоммерческаяИнформация']),
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//         })
+//         .then(response => {
+//             console.log(response)
+//         })
+//         .catch(error => {
+//             console.log(error)
+//         })
+//     })
+// })
 
-
+fs.watch('//SERVER/webdata', (eventType, filename) => {
+    console.log(`event type is: ${eventType}`);
+    if (filename) {
+      console.log(`filename provided: ${filename}`);
+    } else {
+      console.log('filename not provided');
+    }
+  });
 
 
 const server = app.listen(port, (error) => {
