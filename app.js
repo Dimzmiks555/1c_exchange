@@ -13,45 +13,60 @@ app.get('/', (request, response) => {
     response.send('Hello, Server!');
 });
 
-// fs.readFile('//SERVER/webdata/import1_1.xml', (err, data) => {
-//     console.log(err)
-//     parser.parseString(data, (err, result) => {
-//         console.log(result['КоммерческаяИнформация'])
-//         fetch('http://localhost:80/1c_exchange/', {
-//             body: JSON.stringify(result['КоммерческаяИнформация']),
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//         })
-//         .then(response => {
-//             console.log(response)
-//         })
-//         .catch(error => {
-//             console.log(error)
-//         })
-//     })
-// })
-// fs.readFile('//SERVER/webdata/offers1_1.xml', (err, data) => {
-//     console.log(err)
-//     parser.parseString(data, (err, result) => {
-//         console.log(result['КоммерческаяИнформация'])
-//         fetch('http://localhost:80/1c_exchange/prices_and_counts', {
-//             body: JSON.stringify(result['КоммерческаяИнформация']),
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//         })
-//         .then(response => {
-//             console.log(response)
-//         })
-//         .catch(error => {
-//             console.log(error)
-//         })
-//     })
-// })
 
 fs.watch('//SERVER/webdata', (eventType, filename) => {
     console.log(`event type is: ${eventType}`);
-    if (filename) {
-      console.log(`filename provided: ${filename}`);
+    if (filename && eventType == 'change') {
+
+      if (filename.search('import') != -1) {
+        console.log('Товар')
+        console.log(`filename provided: ${filename} ${new Date().toLocaleTimeString()}`);
+
+
+      fs.readFile(`//SERVER/webdata/${filename}`, (err, data) => {
+          console.log(err)
+          parser.parseString(data, (err, result) => {
+              console.log(result['КоммерческаяИнформация'])
+              fetch('http://localhost:80/1c_exchange/', {
+                  body: JSON.stringify(result['КоммерческаяИнформация']),
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+              })
+              .then(response => {
+                  console.log(response)
+              })
+              .catch(error => {
+                  console.log(error)
+              })
+          })
+      })
+
+      } else if (filename.search('offers') != -1) {
+        console.log('Предложения')
+        console.log(`filename provided: ${filename} ${new Date().toLocaleTimeString()}`);
+
+
+        fs.readFile(`//SERVER/webdata/${filename}`, (err, data) => {
+            console.log(err)
+            parser.parseString(data, (err, result) => {
+                console.log(result['КоммерческаяИнформация'])
+                fetch('http://localhost:80/1c_exchange/prices_and_counts', {
+                    body: JSON.stringify(result['КоммерческаяИнформация']),
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            })
+        })
+
+      }
+
+
     } else {
       console.log('filename not provided');
     }
