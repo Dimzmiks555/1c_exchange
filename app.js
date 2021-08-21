@@ -14,6 +14,7 @@ app.get('/', (request, response) => {
 });
 
 
+
 fs.watch('//SERVER/webdata', (eventType, filename) => {
     console.log(`event type is: ${eventType}`);
     if (filename && eventType == 'change') {
