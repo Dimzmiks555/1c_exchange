@@ -28,7 +28,7 @@ fs.watch('//SERVER/webdata', (eventType, filename) => {
           console.log(err)
           parser.parseString(data, (err, result) => {
               console.log(result['КоммерческаяИнформация'])
-              fetch('http://admin.stroitelstore.ru/1c_exchange/', {
+              fetch('https://admin.stroitelstore.ru/1c_exchange/', {
                   body: JSON.stringify(result['КоммерческаяИнформация']),
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -53,7 +53,7 @@ fs.watch('//SERVER/webdata', (eventType, filename) => {
             console.log(err)
             parser.parseString(data, (err, result) => {
                 console.log(result['КоммерческаяИнформация'])
-                fetch('http://admin.stroitelstore.ru/1c_exchange/prices_and_counts', {
+                fetch('https://admin.stroitelstore.ru/1c_exchange/prices_and_counts', {
                     body: JSON.stringify(result['КоммерческаяИнформация']),
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json; charset=utf-8' },
