@@ -35,6 +35,8 @@ fs.watch('//SERVER/webdata', (eventType, filename) => {
               })
               .then(response => {
                   console.log(response)
+                  console.log(response.headers)
+                  console.log(response.body)
               })
               .catch(error => {
                   console.log(error)
